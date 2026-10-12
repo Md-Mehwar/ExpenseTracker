@@ -111,15 +111,20 @@ def payment_method_summary(
     ]
 
 
+from sqlalchemy import func
+
 @router.get("/monthly")
 def monthly_summary(
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
 ):
 
     results = (
         db.query(
-            func.strftime("%Y-%m", Expense.created_at).label("month"),
+            func.to_char(
+                Expense.created_at,
+                "YYYY-MM"
+            ).label("month"),
             func.sum(Expense.amount).label("total")
         )
         .filter(Expense.user_id == current_user.id)

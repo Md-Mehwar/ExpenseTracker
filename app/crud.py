@@ -94,7 +94,13 @@ def get_expenses(
             desc(models.Expense.created_at)
         )
 
-    return query.offset(skip).limit(limit).all()
+    total = query.count()
+    items = query.offset(skip).limit(limit).all()
+
+    return {
+        "items": items,
+        "total": total,
+    }
 
 
 def get_expense_by_id(
@@ -171,3 +177,88 @@ def get_category_summary(db, user_id: int):
         .group_by(models.Expense.category)
         .all()
     )
+# ==========================
+# BUDGET CRUD
+# ==========================
+
+def create_budget(
+    db: Session,
+    budget: schemas.BudgetCreate,
+    user_id: int
+):
+    existing = (
+        db.query(models.Budget)
+        .filter(
+            models.Budget.user_id == user_id,
+            models.Budget.month == budget.month
+        )
+        .first()
+    )
+
+    if existing:
+        existing.amount = budget.amount
+        db.commit()
+        db.refresh(existing)
+        return existing
+
+    db_budget = models.Budget(
+        month=budget.month,
+        amount=budget.amount,
+        user_id=user_id
+    )
+
+    db.add(db_budget)
+    db.commit()
+    db.refresh(db_budget)
+
+    return db_budget
+
+
+def get_budget(
+    db: Session,
+    month: str,
+    user_id: int
+):
+    return (
+        db.query(models.Budget)
+        .filter(
+            models.Budget.month == month,
+            models.Budget.user_id == user_id
+        )
+        .first()
+    )
+
+
+def get_all_budgets(
+    db: Session,
+    user_id: int
+):
+    return (
+        db.query(models.Budget)
+        .filter(models.Budget.user_id == user_id)
+        .order_by(models.Budget.month.desc())
+        .all()
+    )
+
+
+def delete_budget(
+    db: Session,
+    budget_id: int,
+    user_id: int
+):
+    budget = (
+        db.query(models.Budget)
+        .filter(
+            models.Budget.id == budget_id,
+            models.Budget.user_id == user_id
+        )
+        .first()
+    )
+
+    if budget is None:
+        return None
+
+    db.delete(budget)
+    db.commit()
+
+    return budget

@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import engine
 from app import models
-from app.routers import expenses, users, analytics
+from app.routers import expenses, users, analytics, budget
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -28,3 +28,4 @@ def root():
 app.include_router(users.router)
 app.include_router(expenses.router)
 app.include_router(analytics.router)
+app.include_router(budget.router)

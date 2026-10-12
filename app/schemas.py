@@ -54,10 +54,41 @@ class ExpenseResponse(ExpenseBase):
 
     model_config = ConfigDict(from_attributes=True)
 
+
+# =========================
+# ANALYTICS SCHEMAS
+# =========================
+
 class CategorySummary(BaseModel):
     category: str
     total: float
 
-    model_config = {
-        "from_attributes": True
-    }
+    model_config = ConfigDict(from_attributes=True)
+
+
+# =========================
+# BUDGET SCHEMAS
+# =========================
+
+class BudgetBase(BaseModel):
+    month: str = Field(..., examples=["2026-10"])
+    amount: float = Field(..., gt=0)
+
+
+class BudgetCreate(BudgetBase):
+    pass
+
+
+class BudgetUpdate(BudgetBase):
+    pass
+
+
+class BudgetResponse(BudgetBase):
+    id: int
+
+    model_config = ConfigDict(from_attributes=True)
+class ExpensePagination(BaseModel):
+    items: list[ExpenseResponse]
+    total: int
+
+    model_config = ConfigDict(from_attributes=True)

@@ -1,4 +1,4 @@
-from typing import List
+
 
 from fastapi import (
     APIRouter,
@@ -45,7 +45,7 @@ def create_expense(
 # ==========================
 @router.get(
     "/",
-    response_model=List[schemas.ExpenseResponse],
+    response_model=schemas.ExpensePagination,
 )
 def get_expenses(
     search: str | None = Query(default=None),

@@ -79,8 +79,9 @@ def create_access_token(data: dict):
     )
 
 
-def verify_access_token(token: str):
 
+
+def verify_access_token(token: str):
     try:
         payload = jwt.decode(
             token,
@@ -88,9 +89,11 @@ def verify_access_token(token: str):
             algorithms=[ALGORITHM]
         )
 
+        print("Decoded payload:", payload)
         return payload
 
-    except JWTError:
+    except JWTError as e:
+        print("JWT ERROR:", repr(e))
         return None
 
 # ==========================
@@ -110,17 +113,19 @@ def get_current_user(
 
     payload = verify_access_token(token)
 
+   
+
     if payload is None:
         raise credentials_exception
 
     email = payload.get("sub")
 
-    if email is None:
-        raise credentials_exception
+    
 
     user = crud.get_user_by_email(db, email)
 
+    
+
     if user is None:
         raise credentials_exception
-
     return user
