@@ -1,151 +1,206 @@
-# Expense Tracker Backend
+# 💰 Expense Tracker
 
-A secure Expense Tracker REST API built with **FastAPI**, **PostgreSQL**, and **SQLAlchemy**.
+A modern Full Stack Expense Tracker built using **React**, **FastAPI**, and **SQLite/PostgreSQL**. The application allows users to securely manage their expenses with authentication, budgeting, analytics, and export features.
 
-## Features
+---
 
+## 🚀 Features
+
+### Authentication
 - User Registration
-- User Login using JWT Authentication
-- Password Hashing
-- Create Expense
-- View Expenses
-- Update Expense
+- User Login
+- JWT Authentication
+- Protected Routes
+- Logout
+
+### Expense Management
+- Add Expense
+- Edit Expense
 - Delete Expense
 - Search Expenses
-- Filter by Category
-- Filter by Payment Method
-- Sorting
+- Category Filter
+- Sort Expenses
 - Pagination
-- Expense Analytics
-  - Total Expenses
-  - Category-wise Summary
-  - Payment Method Summary
-  - Monthly Summary
-  - Top 5 Expenses
+
+### Budget
+- Set Monthly Budget
+- Remaining Budget Calculation
+
+### Analytics
+- Category-wise Expense Analysis
+- Total Expense Summary
+
+### Export
+- Export Expenses to CSV
+- Export Expenses to PDF
+
+### UI
+- Responsive Design
+- Material UI
+- Dark Mode
+- Toast Notifications
+- Loading Indicators
 
 ---
 
-## Tech Stack
+# 🛠 Tech Stack
+
+## Frontend
+
+- React
+- Material UI
+- Axios
+- React Router
+- React Toastify
+
+## Backend
 
 - FastAPI
-- PostgreSQL
 - SQLAlchemy
 - Alembic
-- Pydantic
 - JWT Authentication
-- Passlib (Password Hashing)
-- Uvicorn
+- Passlib
+- Pydantic
+
+## Database
+
+- SQLite (Development)
+- PostgreSQL (Production Ready)
 
 ---
 
-## Project Structure
+# 📂 Project Structure
 
 ```
 ExpenseTracker
 │
-├── app
-│   ├── routers
-│   ├── auth.py
-│   ├── crud.py
-│   ├── database.py
-│   ├── dependencies.py
-│   ├── main.py
-│   ├── models.py
-│   └── schemas.py
+├── backend
+│   ├── app
+│   ├── alembic
+│   ├── requirements.txt
+│   └── main.py
 │
-├── alembic
-├── requirements.txt
-├── alembic.ini
+├── frontend
+│   ├── src
+│   ├── public
+│   ├── package.json
+│   └── vite.config.js
+│
 └── README.md
 ```
 
 ---
 
-## Installation
+# ⚙️ Installation
 
-Clone the repository
-
-```bash
-git clone https://github.com/Md-Mehwar/ExpenseTracker.git
-```
-
-Move into the project
+## Backend
 
 ```bash
-cd ExpenseTracker
-```
+cd backend
 
-Create a virtual environment
-
-```bash
 python -m venv .venv
-```
 
-Activate it
+source .venv/bin/activate      # Mac/Linux
 
-macOS/Linux
-
-```bash
-source .venv/bin/activate
-```
-
-Windows
-
-```bash
-.venv\Scripts\activate
-```
-
-Install dependencies
-
-```bash
 pip install -r requirements.txt
-```
 
-Configure your PostgreSQL database and update the `.env` file.
-
-Run Alembic migrations
-
-```bash
-alembic upgrade head
-```
-
-Start the server
-
-```bash
 uvicorn app.main:app --reload
 ```
 
----
+Backend runs on
 
-## API Documentation
+```
+http://127.0.0.1:8000
+```
 
-Swagger UI
+Swagger
 
 ```
 http://127.0.0.1:8000/docs
 ```
 
-ReDoc
+---
+
+## Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm run dev
+```
+
+Frontend runs on
 
 ```
-http://127.0.0.1:8000/redoc
+http://localhost:5173
 ```
 
 ---
 
-## Future Improvements
+# 📸 Screenshots
 
-- React Frontend
-- Charts & Dashboard
-- Budget Management
+Add screenshots here after deployment.
+
+- Login Page
+- Register Page
+- Dashboard
+- Expense List
+- Analytics
+- Budget
+- Dark Mode
+- PDF Export
+
+---
+
+# 🔐 Authentication
+
+JWT-based authentication is used.
+
+Each user can only access their own expenses.
+
+---
+
+# 📄 API Endpoints
+
+## Authentication
+
+- POST /register
+- POST /login
+
+## Expenses
+
+- GET /expenses
+- POST /expenses
+- PUT /expenses/{id}
+- DELETE /expenses/{id}
+
+## Budget
+
+- GET /budget
+- POST /budget
+
+## Analytics
+
+- GET /analytics
+
+---
+
+# 🌟 Future Improvements
+
+- Date Range Filter
+- Expense Categories Management
+- Monthly Reports
 - Email Notifications
-- CSV Export
-- Receipt Upload
-- Docker Support
-- Deployment using Render/Vercel
+- Multi-Currency Support
 
 ---
 
-## Author
+# 👨‍💻 Author
 
 **Mohammed Mehwar**
+
+B.E. Electronics & Communication Engineering
+
+BMS College of Engineering
